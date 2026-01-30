@@ -1,11 +1,16 @@
-
+import http from "http";
 import connectDB from "./db/db.js";
 import app from "./app.js";
+import { initSocket } from "./socket.js";
 
 connectDB()
     .then(() => {
-        app.listen(process.env.PORT || 5000, () => {
-            console.log(`Server is running on port: ${process.env.PORT}`);
+        const server = http.createServer(app)
+
+        initSocket(server)
+
+        server.listen(process.env.PORT, () => {
+            console.log(`Server running on port ${process.env.PORT}`)
         })
     })
     .catch((err) => {
