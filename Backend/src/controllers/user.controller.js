@@ -64,6 +64,16 @@ const fetchUser = async (req, res) => {
     }
 }
 
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find().select("_id userName phoneNumber").sort({ createdAt: -1 })
+
+        return res.status(200).json({ message: "Users found", users })
+    } catch (error) {
+        return res.status(500).json({ message: "Something went wrong", error })
+    }
+}
+
 const logout = async (req, res) => {
     try {
         return res
@@ -79,5 +89,6 @@ export {
     signup,
     login,
     fetchUser,
+    getAllUsers,
     logout
 }

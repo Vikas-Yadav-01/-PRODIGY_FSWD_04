@@ -46,7 +46,7 @@ const fetchMessages = async (req, res) => {
             .populate("sender", "userName phoneNumber")
             .populate("chat")
 
-        return res.status(200).json({ message: "Message found", success: true })
+        return res.status(200).json({ message: "Message found", success: true, messages })
     } catch (error) {
         return res.status(500).json({ message: "Failed to fetch messages", error })
     }
